@@ -41,17 +41,6 @@ namespace ConsoleApplication1
             //Pengar tillbaka
             uint change = (uint)recieved - toPay;
 
-            uint fivehundred = change / 500;
-            uint hundred = (change % 500) / 100;
-            uint fifty = (change % 100) / 50;
-            uint twenty = (change % 50) / 20;
-            uint ten = (change % 20) / 10;
-            uint five = (change % 10) / 5;
-            uint one = (change % 5);
-
-          
-           
-
             //kvitto
             Console.WriteLine();
             Console.WriteLine("KVITTO");
@@ -65,40 +54,56 @@ namespace ConsoleApplication1
             Console.WriteLine("----------------------------------------");
             Console.WriteLine();
 
-            if (fivehundred > 0)
+            uint changeBills;
+            changeBills = change / 500;
+            if (changeBills > 0)
             {
-                Console.WriteLine("500-lappar             : {0}",fivehundred);
+                Console.WriteLine("500-lappar             : {0}", changeBills);
             }
-
-            if (hundred > 0)
+            changeBills = (change % 500) / 100;
+            if (changeBills > 0)
             {
-                Console.WriteLine("100-lappar             : {0}", hundred);
+                Console.WriteLine("100-lappar             : {0}", changeBills);
             }
-
-            if (fifty > 0)
+            changeBills = (change % 100) / 50;
+            if (changeBills > 0)
             {
-                Console.WriteLine("50-lappar              : {0}", fifty);
+                Console.WriteLine("50-lappar              : {0}", changeBills);
             }
-
-            if (twenty > 0)
+            changeBills = (change % 50) / 20;
+            if (changeBills > 0)
             {
-                Console.WriteLine("20-lappar              : {0}", twenty);
+                Console.WriteLine("20-lappar              : {0}", changeBills);
             }
-
-            if (ten > 0)
+            changeBills = (change % 20) / 10;
+            if (changeBills > 0)
             {
                 Console.WriteLine("10-kronor              : {0}", ten);
             }
+            changeBills = (change % 10) / 5;
 
             if (five > 0)
             {
                 Console.WriteLine("5-kronor               : {0}", five);
             }
+            changeBills = (change % 5);
 
             if (one > 0)
             {
                 Console.WriteLine("1-kronor               : {0}", one);
             }
+
+            
+
+           
+
+            
+
+            
+
+            
+
+
 
 
             Console.WriteLine("tryck ESC för att avsluta eller valfri tangent för att påbörja en ny uträkning!");
