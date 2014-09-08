@@ -134,19 +134,9 @@ namespace ConsoleApplication1
             }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("tryck ESC för att avsluta eller valfri tangent för att påbörja en ny uträkning!");
+            Console.ResetColor();
             ConsoleKeyInfo buttonpress = Console.ReadKey();
             if (buttonpress.Key == ConsoleKey.Escape)
             { Environment.Exit(0); }
