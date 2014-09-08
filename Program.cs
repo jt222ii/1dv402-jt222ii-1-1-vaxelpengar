@@ -8,53 +8,93 @@ namespace ConsoleApplication1
 {
     class Program
     {
-        // tst
+
+
+
         static void Main(string[] args)
         {
-            start:
-            Console.Clear();
-            //Totalsumman och belopp erhållet.
-        total:
-            
-            Console.Write("Ange totalsumma        : ");
-            double total = double.Parse(Console.ReadLine());
+            double total;
+            double recieved;
+            uint toPay;
+            double roundOff;
+            uint change;
+            uint changeBills;
 
-            if (total < 1)
-            { Console.WriteLine("Felaktig totalsumma! {0:c} kan ej tolkas som en giltig summa pengar! vänligen försök igen.", total); //Konsolen skriver ut att det är fel och sedan återgår den till att man ska skriva in totalsumman
-            goto total;
+
+        start:
+            Console.Clear();
+        //Totalsumman och belopp erhållet.
+        total:
+
+            try
+            {
+                Console.Write("Ange totalsumma        : ");
+                total = double.Parse(Console.ReadLine());
+
+                if (Math.Round(total, MidpointRounding.AwayFromZero) < 1)
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Felaktig totalsumma! {0:c} kan ej tolkas som en giltig summa pengar! vänligen försök igen.", total); //Konsolen skriver ut att det är fel och sedan återgår den till att man ska skriva in totalsumman
+                    Console.ResetColor();
+                    goto total;
+                }
             }
 
-            recieved:
-            Console.Write("Ange erhållet belopp   : ");
-            double recieved = int.Parse(Console.ReadLine());
-            if (recieved < total)
+            catch
             {
-                Console.WriteLine("{0:c} täcker ej det belopp som förväntas betalas: {1:c} Vänligen försök  igen!", recieved, total); //Konsolen skriver ut att det är fel och sedan återgår den till att man ska skriva in det erhållna beloppet.
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("Felaktigt värde!");
+                Console.ResetColor();
+                goto total;
+
+            }
+
+        recieved:
+        
+
+            try
+            {
+                Console.Write("Ange erhållet belopp   : ");
+                recieved = int.Parse(Console.ReadLine());
+                if (recieved < total)
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.WriteLine("{0:c} täcker ej det belopp som förväntas betalas: {1:c} Vänligen försök  igen!", recieved, total); //Konsolen skriver ut att det är fel och sedan återgår den till att man ska skriva in det erhållna beloppet.
+                    Console.ResetColor();
+                    goto recieved;
+                }
+            }
+            catch
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("Felaktigt värde!");
+                Console.ResetColor();
                 goto recieved;
+
             }
 
 
             //Att betala efter öresavrundning och öresavrundningen.
-            uint toPay = (uint)Math.Round(total, MidpointRounding.AwayFromZero); //MidpointRounding.AwayFromZero gör så att x.5 avrundar upp och inte ner.
-            double roundOff = toPay - total;
+            toPay = (uint)Math.Round(total, MidpointRounding.AwayFromZero); //MidpointRounding.AwayFromZero gör så att x.5 avrundar upp och inte ner.
+            roundOff = toPay - total;
 
             //Pengar tillbaka
-            uint change = (uint)recieved - toPay;
+            change = (uint)recieved - toPay;
 
             //kvitto
             Console.WriteLine();
             Console.WriteLine("KVITTO");
             Console.WriteLine("----------------------------------------");
             Math.Round(roundOff, 0, MidpointRounding.AwayFromZero);
-            Console.WriteLine("totalt                 : {0}", total);
-            Console.WriteLine("öresavrundning         : {0:f2}", roundOff);
-            Console.WriteLine("att betala             : {0}", toPay);
-            Console.WriteLine("Kontant                : {0}", recieved);
-            Console.WriteLine("Växel                  : {0}", change);
+            Console.WriteLine("totalt                 : {0,15:c}", total);
+            Console.WriteLine("öresavrundning         : {0,15:c}", roundOff);
+            Console.WriteLine("att betala             : {0,15:c}", toPay);
+            Console.WriteLine("Kontant                : {0,15:c}", recieved);
+            Console.WriteLine("Växel                  : {0,15:c}", change);
             Console.WriteLine("----------------------------------------");
             Console.WriteLine();
 
-            uint changeBills;
+
             changeBills = change / 500;
             if (changeBills > 0)
             {
@@ -78,30 +118,30 @@ namespace ConsoleApplication1
             changeBills = (change % 20) / 10;
             if (changeBills > 0)
             {
-                Console.WriteLine("10-kronor              : {0}", ten);
+                Console.WriteLine("10-kronor              : {0}", changeBills);
             }
             changeBills = (change % 10) / 5;
 
-            if (five > 0)
+            if (changeBills > 0)
             {
-                Console.WriteLine("5-kronor               : {0}", five);
+                Console.WriteLine("5-kronor               : {0}", changeBills);
             }
             changeBills = (change % 5);
 
-            if (one > 0)
+            if (changeBills > 0)
             {
-                Console.WriteLine("1-kronor               : {0}", one);
+                Console.WriteLine("1-kronor               : {0}", changeBills);
             }
 
-            
 
-           
 
-            
 
-            
 
-            
+
+
+
+
+
 
 
 
