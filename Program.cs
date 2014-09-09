@@ -8,71 +8,76 @@ namespace ConsoleApplication1
 {
     class Program
     {
-
-
-
         static void Main(string[] args)
         {
-            double total;
-            double recieved;
-            uint toPay;
-            double roundOff;
-            uint change;
-            uint changeBills;
 
+            double total=0d;
+            double recieved=0d;
+            uint toPay=0;
+            double roundOff=0d;
+            uint change=0;
+            uint changeBills=0;
 
-        start:
-            Console.Clear();
+            
         //Totalsumman och belopp erhållet.
-        total:
 
-            try
+
+            Boolean check = false;
+
+            while (check == false)
             {
-                Console.Write("Ange totalsumma        : ");
-                total = double.Parse(Console.ReadLine());
+                try
+                {
+                    Console.Write("Ange totalsumma        : ");
+                    total = double.Parse(Console.ReadLine());
+                    check = true;
+                    if (Math.Round(total, MidpointRounding.AwayFromZero) < 1)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Felaktig totalsumma! {0:c} kan ej tolkas som en giltig summa pengar! vänligen försök igen.", total); //Konsolen skriver ut att det är fel och sedan återgår den till att man ska skriva in totalsumman
+                        Console.ResetColor();
+                        check = false;
+                    }
+                }
 
-                if (Math.Round(total, MidpointRounding.AwayFromZero) < 1)
+                catch
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Felaktig totalsumma! {0:c} kan ej tolkas som en giltig summa pengar! vänligen försök igen.", total); //Konsolen skriver ut att det är fel och sedan återgår den till att man ska skriva in totalsumman
+                    Console.WriteLine("Felaktigt värde!");
                     Console.ResetColor();
-                    goto total;
+
+
+                } 
+            }
+
+
+            check = false;
+            while (check == false)
+            {
+                try
+                {
+
+                    Console.Write("Ange erhållet belopp   : ");
+                    recieved = int.Parse(Console.ReadLine());
+                    check = true;
+                    if (recieved < total)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.WriteLine("{0:c} täcker ej det belopp som förväntas betalas: {1:c} Vänligen försök  igen!", recieved, total); //Konsolen skriver ut att det är fel och sedan återgår den till att man ska skriva in det erhållna beloppet.
+                        Console.ResetColor();
+                        check = false;
+                    }
                 }
-            }
-
-            catch
-            {
-                Console.BackgroundColor = ConsoleColor.Red;
-                Console.WriteLine("Felaktigt värde!");
-                Console.ResetColor();
-                goto total;
-
-            }
-
-        recieved:
-        
-
-            try
-            {
-                Console.Write("Ange erhållet belopp   : ");
-                recieved = int.Parse(Console.ReadLine());
-                if (recieved < total)
+                catch
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
-                    Console.WriteLine("{0:c} täcker ej det belopp som förväntas betalas: {1:c} Vänligen försök  igen!", recieved, total); //Konsolen skriver ut att det är fel och sedan återgår den till att man ska skriva in det erhållna beloppet.
+                    Console.WriteLine("Felaktigt värde!");
                     Console.ResetColor();
-                    goto recieved;
+
+
                 }
+                
             }
-            catch
-            {
-                Console.BackgroundColor = ConsoleColor.Red;
-                Console.WriteLine("Felaktigt värde!");
-                Console.ResetColor();
-                goto recieved;
-
-            }
-
 
             //Att betala efter öresavrundning och öresavrundningen.
             toPay = (uint)Math.Round(total, MidpointRounding.AwayFromZero); //MidpointRounding.AwayFromZero gör så att x.5 avrundar upp och inte ner.
@@ -133,17 +138,17 @@ namespace ConsoleApplication1
                 Console.WriteLine("1-kronor               : {0}", changeBills);
             }
 
-
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("tryck ESC för att avsluta eller valfri tangent för att påbörja en ny uträkning!");
             Console.ResetColor();
             ConsoleKeyInfo buttonpress = Console.ReadKey();
-            if (buttonpress.Key == ConsoleKey.Escape)
-            { Environment.Exit(0); }
-            else
-            { goto start; }
 
+            if (buttonpress.Key == ConsoleKey.Escape)
+            { 
+                Environment.Exit(0); 
+            }
         }
+        
     }
 }
 
