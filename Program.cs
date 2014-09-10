@@ -72,18 +72,19 @@ namespace ConsoleApplication1
 
                 }
                 // är det erhållna beloppet mindre än vad som förväntas att betalas?     
-                if (recieved < total)
+              
+                 //Att betala efter öresavrundning och öresavrundningen.
+                toPay = (uint)Math.Round(total, MidpointRounding.AwayFromZero); //MidpointRounding.AwayFromZero gör så att x.5 avrundar upp och inte ner.
+                roundOff = toPay - total;
+ 
+                if (recieved < toPay)
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("Det erhållna beloppet {0:c} är för litet och köpet kunde inte genomföras.", recieved, total);
                     Console.ResetColor();
                     break;
                 }
-
-
-                //Att betala efter öresavrundning och öresavrundningen.
-                toPay = (uint)Math.Round(total, MidpointRounding.AwayFromZero); //MidpointRounding.AwayFromZero gör så att x.5 avrundar upp och inte ner.
-                roundOff = toPay - total;
+              
 
                 //Pengar tillbaka
                 change = (uint)recieved - toPay;
