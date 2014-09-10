@@ -31,13 +31,7 @@ namespace ConsoleApplication1
                         Console.Write("Ange totalsumma        : ");
                         total = double.Parse(Console.ReadLine());
                         check = true;
-                        if (Math.Round(total, MidpointRounding.AwayFromZero) < 1)
-                        {
-                            Console.BackgroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Felaktig totalsumma! {0:c} är en för liten summa! vänligen försök igen.", total); //Konsolen skriver ut att det är fel och sedan återgår den till att man ska skriva in totalsumman
-                            Console.ResetColor();
-                            check = false;
-                        }
+                       
                     }
 
                     catch
@@ -46,6 +40,16 @@ namespace ConsoleApplication1
                         Console.WriteLine("Felaktigt värde!");
                         Console.ResetColor();
                     }
+                    
+                }
+
+                //är den totala summan efter avrundning mindre än ett?
+                if (Math.Round(total, MidpointRounding.AwayFromZero) < 1)
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Felaktig totalsumma! {0:c} är en för liten summa!Köpet kunde inte genomföras", total); //Konsolen skriver ut att det är fel och stänger av programmet
+                    Console.ResetColor();
+                    break;
                 }
 
 
@@ -55,28 +59,27 @@ namespace ConsoleApplication1
                 {
                     try
                     {
-
                         Console.Write("Ange erhållet belopp   : ");
-                        recieved = int.Parse(Console.ReadLine());
-                        check = true;
-                        if (recieved < total)
-                        {
-                            Console.BackgroundColor = ConsoleColor.Red;
-                            Console.WriteLine("{0:c} täcker ej det belopp som förväntas betalas: {1:c} Vänligen försök  igen!", recieved, total); //Konsolen skriver ut att det är fel och sedan återgår den till att man ska skriva in det erhållna beloppet.
-                            Console.ResetColor();
-                            check = false;
-                        }
+                        recieved = double.Parse(Console.ReadLine());
+                        check = true;  
                     }
                     catch
                     {
                         Console.BackgroundColor = ConsoleColor.Red;
                         Console.WriteLine("Felaktigt värde!");
                         Console.ResetColor();
-
-
                     }
 
                 }
+                // är det erhållna beloppet mindre än vad som förväntas att betalas?     
+                if (recieved < total)
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Det erhållna beloppet {0:c} är för litet och köpet kunde inte genomföras.", recieved, total);
+                    Console.ResetColor();
+                    break;
+                }
+
 
                 //Att betala efter öresavrundning och öresavrundningen.
                 toPay = (uint)Math.Round(total, MidpointRounding.AwayFromZero); //MidpointRounding.AwayFromZero gör så att x.5 avrundar upp och inte ner.
@@ -92,9 +95,9 @@ namespace ConsoleApplication1
                 Math.Round(roundOff, 0, MidpointRounding.AwayFromZero);
                 Console.WriteLine("totalt                 : {0,15:c}", total);
                 Console.WriteLine("öresavrundning         : {0,15:c}", roundOff);
-                Console.WriteLine("att betala             : {0,15:c}", toPay);
-                Console.WriteLine("Kontant                : {0,15:c}", recieved);
-                Console.WriteLine("Växel                  : {0,15:c}", change);
+                Console.WriteLine("att betala             : {0,15:c0}", toPay);
+                Console.WriteLine("Kontant                : {0,15:c0}", recieved);
+                Console.WriteLine("Växel                  : {0,15:c0}", change);
                 Console.WriteLine("----------------------------------------");
                 Console.WriteLine();
 
@@ -143,7 +146,7 @@ namespace ConsoleApplication1
                 Console.ResetColor();
                 ConsoleKeyInfo buttonpress = Console.ReadKey();
 
-                if (buttonpress.Key == ConsoleKey.Escape)       // denna if-satsen stänger av programmet om man trycker escape
+                if (buttonpress.Key == ConsoleKey.Escape)       // denna if-satsen stänger av programmet om man trycker escape 
                 {
                     break;
                 }
