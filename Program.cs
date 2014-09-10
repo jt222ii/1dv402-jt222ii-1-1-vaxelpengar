@@ -34,7 +34,7 @@ namespace ConsoleApplication1
                         if (Math.Round(total, MidpointRounding.AwayFromZero) < 1)
                         {
                             Console.BackgroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Felaktig totalsumma! {0:c} kan ej tolkas som en giltig summa pengar! vänligen försök igen.", total); //Konsolen skriver ut att det är fel och sedan återgår den till att man ska skriva in totalsumman
+                            Console.WriteLine("Felaktig totalsumma! {0:c} är en för liten summa! vänligen försök igen.", total); //Konsolen skriver ut att det är fel och sedan återgår den till att man ska skriva in totalsumman
                             Console.ResetColor();
                             check = false;
                         }
@@ -145,7 +145,7 @@ namespace ConsoleApplication1
 
                 if (buttonpress.Key == ConsoleKey.Escape)       // denna if-satsen stänger av programmet om man trycker escape
                 {
-                    Environment.Exit(0);
+                    break;
                 }
                 
                 
