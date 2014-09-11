@@ -43,11 +43,10 @@ namespace ConsoleApplication1
                     
                 }
 
-                //är den totala summan efter avrundning mindre än ett?
                 if (Math.Round(total, MidpointRounding.AwayFromZero) < 1)
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Felaktig totalsumma! {0:c} är en för liten summa!Köpet kunde inte genomföras", total); //Konsolen skriver ut att det är fel och stänger av programmet
+                    Console.WriteLine("Felaktig totalsumma! {0:c} är en för liten summa! Köpet kunde inte genomföras", total); //Konsolen skriver ut att det är fel och stänger av programmet
                     Console.ResetColor();
                     break;
                 }
@@ -71,12 +70,12 @@ namespace ConsoleApplication1
                     }
 
                 }
-                // är det erhållna beloppet mindre än vad som förväntas att betalas?     
+                 
               
                  //Att betala efter öresavrundning och öresavrundningen.
                 toPay = (uint)Math.Round(total, MidpointRounding.AwayFromZero); //MidpointRounding.AwayFromZero gör så att x.5 avrundar upp och inte ner.
                 roundOff = toPay - total;
- 
+  
                 if (recieved < toPay)
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
